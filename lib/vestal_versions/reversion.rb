@@ -45,6 +45,12 @@ module VestalVersions
       def reverted?
         version != last_version
       end
+      
+      # opposite of reverted, indicates if the current object is the latest version
+      # in the version history
+      def live?
+        !reverted?
+      end
 
       private
 
