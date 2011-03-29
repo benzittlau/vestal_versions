@@ -48,7 +48,7 @@ module VestalVersions
       
       if model
         model.save!
-        destroy
+        update_attributes(:tag => "")
       end
       
       model

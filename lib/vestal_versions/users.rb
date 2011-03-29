@@ -32,7 +32,7 @@ module VestalVersions
         alias_method_chain :user=, :name
       end
 
-      # Overrides the +user+ method created by the polymorphic +belongs_to+ user association. If
+      # Overrides thGe +user+ method created by the polymorphic +belongs_to+ user association. If
       # the association is absent, defaults to the +user_name+ string column. This allows
       # VestalVersions::Version#user to either return an ActiveRecord::Base object or a string,
       # depending on what is sent to the +user_with_name=+ method.

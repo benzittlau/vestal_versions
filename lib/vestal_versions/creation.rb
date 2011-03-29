@@ -36,7 +36,12 @@ module VestalVersions
 
         # Creates an initial version upon creation of the parent record.
         def create_initial_version
-          versions.create(version_attributes.merge(:number => 1))
+          attributes_for_version_creation = version_attributes
+          attributes_for_version_creation.merge!({
+            :action => :create,
+            :number => 1})
+          
+          versions.create(attributes_for_version_creation)
           reset_version_changes
           reset_version
         end
@@ -47,8 +52,12 @@ module VestalVersions
         end
 
         # Creates a new version upon updating the parent record.
-        def create_version(attributes = nil)
-          versions.create(attributes || version_attributes)
+        def create_version(explicit_attributes = nil)
+          attributes_for_version_creation = explicit_attributes || version_attributes
+          attributes_for_version_creation.merge!(
+            :action => :update)
+          
+          versions.create(attributes_for_version_creation)
           reset_version_changes
           reset_version
         end
@@ -68,6 +77,7 @@ module VestalVersions
           reset_version_changes
           reset_version
         end
+        
 
         # Returns an array of column names that should be included in the changes of created
         # versions. If <tt>vestal_versions_options[:only]</tt> is specified, only those columns
