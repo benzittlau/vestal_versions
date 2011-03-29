@@ -54,9 +54,14 @@ module VestalVersions
         # Creates a new version upon updating the parent record.
         def create_version(explicit_attributes = nil)
           attributes_for_version_creation = explicit_attributes || version_attributes
+          if (attributes_for_version_creation[:reverted_from] != nil)
+            action = :revert
+          else
+            action = :update
+          end
           attributes_for_version_creation.merge!(
-            :action => :update)
-          
+            :action => action)
+                            
           versions.create(attributes_for_version_creation)
           reset_version_changes
           reset_version
