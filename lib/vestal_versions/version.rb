@@ -19,6 +19,15 @@ module VestalVersions
       self[:modifications]
     end
     serialize :modifications, Hash
+    
+    # Will check to see if the object of the given id and class was deleted
+    def self.deleted(versioned_id, versioned_class)
+      find(:first, 
+        :conditions => {
+          :versioned_id => versioned_id, 
+          :versioned_type => versioned_class.name, 
+          :tag => 'deleted'})
+    end
 
     # In conjunction with the included Comparable module, allows comparison of version records
     # based on their corresponding version numbers, creation timestamps and IDs.
@@ -47,12 +56,13 @@ module VestalVersions
       model = restore
       
       if model
-        model.save!
-        update_attributes(:tag => "")
+        model.save!(:autosave => false)
+        update_attribute(:tag, "")
       end
       
       model
     end
+      
     
     def restore
       if tag == 'deleted'

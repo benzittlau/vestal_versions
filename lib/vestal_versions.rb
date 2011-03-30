@@ -124,6 +124,7 @@ module VestalVersions
     # used for separate table version recording.  dynamically creates the necessary
     # custom classes for each model.
     # TODO: integrate this in better as an option
+    # TODO: figure out how to generate this on-load to avoid unitialized constant errors
     def individually_versioned(options = {}, &block)
       #dynamically create the class for the models versions
       version_class_name = "#{self.name}Version"
