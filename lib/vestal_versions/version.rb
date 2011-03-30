@@ -56,8 +56,8 @@ module VestalVersions
       model = restore
       
       if model
-        model.save!(:autosave => false)
-        update_attribute(:tag, "")
+        model.save!
+        update_attributes(:tag => nil)
       end
       
       model

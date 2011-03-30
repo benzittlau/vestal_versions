@@ -37,7 +37,6 @@ module VestalVersions
         # Creates an initial version upon creation of the parent record.
         # TODO: refactor this to move the restore version creation into a separate method
         def create_initial_version
-          debugger
           attributes_for_version_creation = version_attributes
           # if this is the first instance of this object
           if last_version == 1
